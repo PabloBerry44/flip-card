@@ -62,21 +62,27 @@ function startGame(difficulty){
 
     //place images on the cards
 
-    let savedIndexes = []
-    let imageIndex = 0
+    let savedCardIndexes = []
+    let savedImageIndexes = []
+    let imageIndex = Math.floor(Math.random() * (numOfCards/2))
     let cardIndex = 0
     const cardImages = document.querySelectorAll('.cardImage')
     for(e=0; e<numOfCards; e++){
-        while(savedIndexes.includes(cardIndex)){
+
+        if(e%2==0){
+            while(savedImageIndexes.includes(imageIndex)){
+                imageIndex = Math.floor(Math.random() * (numOfCards/2))
+            }
+            savedImageIndexes.push(imageIndex)
+        }
+
+        while(savedCardIndexes.includes(cardIndex)){
             cardIndex = Math.floor(Math.random() * numOfCards)
         }
-        savedIndexes.push(cardIndex)
-        console.log(savedIndexes)
+        savedCardIndexes.push(cardIndex)
 
         cardImages[cardIndex].src = './card_images/img'+imageIndex+'.webp'
-        if(!(e%2==0)){
-            imageIndex++
-        }
+
 
     }
 
