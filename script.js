@@ -1,6 +1,7 @@
 const diffButton = document.querySelectorAll('.difficulty')
 const gameStartView = document.querySelector('.startGame')
 const playground = document.querySelector('.playground')
+const winView = document.querySelector('.winner')
 
 const cardWrapArray = []
 const cardInnerArray = []
