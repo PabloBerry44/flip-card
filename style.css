@@ -22,7 +22,6 @@ main{
     position: relative;
     box-sizing: initial;
     border-radius: 20px;
-    overflow: hidden;
 }
     .startGame{
         width: 100%;
