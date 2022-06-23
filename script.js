@@ -2,6 +2,11 @@ const diffButton = document.querySelectorAll('.difficulty')
 const gameStartView = document.querySelector('.startGame')
 const playground = document.querySelector('.playground')
 
+const cardWrapArray = []
+const cardInnerArray = []
+const cardBackArray = []
+const cardImageArray = []
+
 for (const button of diffButton) {
     button.addEventListener('click', () => createGame(button.textContent))
 }
@@ -21,30 +26,39 @@ function createGame(difficulty){
 
     for(q=0; q<numOfCards; q++){
         
+        //create cardWrap and set its width and height according to numberofcards
         cardWrap = document.createElement('div')
         cardWrap.classList.add('cardWrap')
         cardWrap.style.width = ((650-gapsSize)/inRow) + 'px'
         cardWrap.style.height = ((650-gapsSize)/inRow) + 'px'
+        playground.appendChild(cardWrap)
+        cardWrapArray.push(cardWrap)
 
-        const cardWrapInner = document.createElement('div')
-        cardWrapInner.classList.add('cardWrap-inner')
+        //create cardWrapInner
+        const cardInner = document.createElement('div')
+        cardInner.classList.add('cardWrap-inner')
+        cardWrap.appendChild(cardInner)
+        cardInnerArray.push(cardInner)
 
-        const cardWrapFront = document.createElement('div')
-        cardWrapFront.innerHTML = "?"
-        cardWrapFront.classList.add('cardWrap-front')
+        //create front of the card and add '?' to it
+        const cardFront = document.createElement('div')
+        cardFront.innerHTML = "?"
+        cardFront.classList.add('cardWrap-front')
+        cardInner.appendChild(cardFront)
 
-        const cardWrapBack = document.createElement('div')
-        cardWrapBack.classList.add('cardWrap-back')
+        //create back of the card
+        const cardBack = document.createElement('div')
+        cardBack.classList.add('cardWrap-back')
+        cardInner.appendChild(cardBack)
+        cardBackArray.push(cardBack)
 
+        //create image
         const cardImage = document.createElement('img')
         cardImage.classList.add('cardImage')
+        cardBack.appendChild(cardImage)
+        cardImageArray.push(cardImage)
 
-        playground.appendChild(cardWrap)
-        cardWrap.appendChild(cardWrapInner)
-        cardWrapInner.appendChild(cardWrapFront)
-        cardWrapInner.appendChild(cardWrapBack)
-        cardWrapBack.appendChild(cardImage)
-
+        //if there are 8 cards make the middle one go down
         if(numOfCards==8 && q==4){
             cardWrap.style.transform = 'translateY(211px)'
         }
@@ -74,43 +88,50 @@ function createGame(difficulty){
         cardImages[cardIndex].src = './card_images/img'+imageIndex+'.webp'
     }
 
-    startGame()
+    startGame(cardWrapArray, cardImageArray, cardInnerArray)
 }
 
-function startGame(){
-    const cards = document.querySelectorAll('.cardWrap')
+function startGame(wrap, image, inner){
+    let oneCardFlipped = false
+    let cardsInMove = false
+    for(let w=0; w<wrap.length; w++){
+        wrap[w].addEventListener('click', clicked)
 
-    let flipCount = 0
-    for (const card of cards) {
-        card.addEventListener('click', ()=>{
-
-            card.children[0].classList.add('flip')
-
-            if(flipCount==0){
-                srcAttribute1 = card.children[0].children[1].children[0].src
-                flipCount++
-            }
-            else if(flipCount==1){
-                if(srcAttribute1 == card.children[0].children[1].children[0].src){
-                    for (const card of cards) {
-                        if(card.children[0].classList.contains('flip')){
-                            setTimeout(()=>{
-                                card.style.opacity = '0.3'
-                            },1000)
-                            
-                        }
-                    }
+        function clicked(){
+            if(!cardsInMove){
+                //flip the card
+                inner[w].classList.add('flip')
+                //if none of the cards are flipped
+                if(!oneCardFlipped){
+                    oneCardFlipped = true
+                    card1index = w
                 }
-                else{
-                    for (const card of cards) {
-                        if(card.children[0].classList.contains('flip') && card.style.opacity!='0.3')
+                //if one card if flipped
+                else if(oneCardFlipped && card1index!=w){
+                    card2index = w
+                    //if they are the same make them transparent in 1 second
+                    if(image[card1index].src == image[card2index].src){
+                        cardsInMove = true
                         setTimeout(()=>{
-                            card.children[0].classList.remove('flip')
+                            wrap[card1index].classList.add('guessed')
+                            wrap[card2index].classList.add('guessed')
+                            cardsInMove = false
                         },1000)
-                        flipCount=0
+                        oneCardFlipped=false
+                    }
+                    //if they are not the same flip them back afrer 1 second
+                    else if(image[card1index].src != image[card2index].src){
+                        cardsInMove = true
+                        setTimeout(()=>{
+                            inner[card1index].classList.remove('flip')
+                            inner[card2index].classList.remove('flip')
+                            cardsInMove = false
+                        },1000)
+                        oneCardFlipped=false
                     }
                 }
             }
-        })
+        }
     }
+
 }
