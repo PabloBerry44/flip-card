@@ -3,10 +3,10 @@ const gameStartView = document.querySelector('.startGame')
 const playground = document.querySelector('.playground')
 
 for (const button of diffButton) {
-    button.addEventListener('click', () => startGame(button.textContent))
+    button.addEventListener('click', () => createGame(button.textContent))
 }
 
-function startGame(difficulty){
+function createGame(difficulty){
     let numOfCards
     let gapsSize
     let inRow
@@ -48,16 +48,6 @@ function startGame(difficulty){
         if(numOfCards==8 && q==4){
             cardWrap.style.transform = 'translateY(211px)'
         }
-
-        // cardWrap.addEventListener('click', ()=>{
-        //     if(cardWrapInner.classList.contains('flip')){
-        //         cardWrapInner.classList.remove('flip')
-        //     }
-        //     else{
-        //         cardWrapInner.classList.add('flip')
-        //     }
-        // })
-        cardWrapInner.classList.add('flip')
     }
 
     //place images on the cards
@@ -82,8 +72,45 @@ function startGame(difficulty){
         savedCardIndexes.push(cardIndex)
 
         cardImages[cardIndex].src = './card_images/img'+imageIndex+'.webp'
-
-
     }
 
+    startGame()
+}
+
+function startGame(){
+    const cards = document.querySelectorAll('.cardWrap')
+
+    let flipCount = 0
+    for (const card of cards) {
+        card.addEventListener('click', ()=>{
+
+            card.children[0].classList.add('flip')
+
+            if(flipCount==0){
+                srcAttribute1 = card.children[0].children[1].children[0].src
+                flipCount++
+            }
+            else if(flipCount==1){
+                if(srcAttribute1 == card.children[0].children[1].children[0].src){
+                    for (const card of cards) {
+                        if(card.children[0].classList.contains('flip')){
+                            setTimeout(()=>{
+                                card.style.opacity = '0.3'
+                            },1000)
+                            
+                        }
+                    }
+                }
+                else{
+                    for (const card of cards) {
+                        if(card.children[0].classList.contains('flip') && card.style.opacity!='0.3')
+                        setTimeout(()=>{
+                            card.children[0].classList.remove('flip')
+                        },1000)
+                        flipCount=0
+                    }
+                }
+            }
+        })
+    }
 }
