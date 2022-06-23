@@ -40,7 +40,8 @@ main{
     }
 .restart{
     width: 30%;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    padding: .25rem;
     background: lightblue;
     border-radius: 20px;
     text-align: center;
