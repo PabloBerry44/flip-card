@@ -10,15 +10,14 @@ const cardImageArray = []
 for (const button of diffButton) {
     button.addEventListener('click', () => createGame(button.textContent))
 }
-
+let numOfCards
+let inRow
 function createGame(difficulty){
-    let numOfCards
-    let gapsSize
-    let inRow
+
     switch(difficulty){
-        case 'Easy': numOfCards=8, gapsSize=40, inRow=3; break;
-        case 'Medium': numOfCards=16, gapsSize=50, inRow=4; break;
-        case 'Hard': numOfCards=36, gapsSize=60, inRow=6; break;
+        case 'Easy': numOfCards=8, inRow=3; break;
+        case 'Medium': numOfCards=16, inRow=4; break;
+        case 'Hard': numOfCards=36, inRow=6; break;
     }
 
     gameStartView.style.opacity = 0
@@ -29,8 +28,6 @@ function createGame(difficulty){
         //create cardWrap and set its width and height according to numberofcards
         cardWrap = document.createElement('div')
         cardWrap.classList.add('cardWrap')
-        cardWrap.style.width = ((650-gapsSize)/inRow) + 'px'
-        cardWrap.style.height = ((650-gapsSize)/inRow) + 'px'
         playground.appendChild(cardWrap)
         cardWrapArray.push(cardWrap)
 
@@ -57,12 +54,8 @@ function createGame(difficulty){
         cardImage.classList.add('cardImage')
         cardBack.appendChild(cardImage)
         cardImageArray.push(cardImage)
-
-        //if there are 8 cards make the middle one go down
-        if(numOfCards==8 && q==4){
-            cardWrap.style.transform = 'translateY(211px)'
-        }
     }
+    setSize()
 
     //place images on the cards
     let savedCardIndexes = []
@@ -135,5 +128,24 @@ function startGame(wrap, image, inner){
             }
         }
     }
+}
 
+
+window.addEventListener('resize', setSize)
+
+function setSize(){
+    gameWidth = document.querySelector('.playground').clientWidth
+
+    let gapSize
+    if(cardWrapArray.length!=8){
+        gapSize = (Math.sqrt(cardWrapArray.length)+1)*10
+    }
+    else{
+        gapSize = 40
+    }
+
+    let cardSize = ((gameWidth-gapSize)/inRow) + 'px'
+    for (const card of cardWrapArray) {
+        card.style.width = cardSize
+    }
 }

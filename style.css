@@ -10,18 +10,21 @@ main{
     background: lightyellow;
 }
 .movesCount{
-    width: 600px;
+    width: 90%;
+    max-width: 650px;
     font-size: 2rem;
 }
     .movesCount::before{
         content: 'Moves: ';
     }
 .game{
-    width: 650px;
-    height: 650px;
+    width: 90%;
+    max-width: 650px;
+    aspect-ratio: 1/1;
     position: relative;
     box-sizing: initial;
     border-radius: 20px;
+    /* overflow: hidden; */
 }
     .startGame{
         width: 100%;
@@ -56,11 +59,13 @@ main{
         padding: 10px;
         justify-content: space-between;
         display: flex;
+        gap: 10px;
         flex-wrap: wrap;
         position: absolute;
         background: rgb(248, 248, 209);
     }
 .cardWrap{
+    aspect-ratio: 1/1;
     perspective: 1000px;
     cursor: pointer;
     transition: 200ms;
