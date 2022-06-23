@@ -9,13 +9,32 @@ main{
     justify-content: center;
     background: lightyellow;
 }
+.nav{
+    width: 100%;
+    max-width: 650px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
 .movesCount{
-    width: 90%;
+    width: 50%;
     max-width: 650px;
     font-size: 2rem;
 }
     .movesCount::before{
         content: 'Moves: ';
+    }
+.restart{
+    width: 30%;
+    font-size: 2rem;
+    background: lightblue;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+    .restart:hover{
+        background: rgb(146, 195, 211);
     }
 .game{
     width: 90%;
@@ -24,7 +43,7 @@ main{
     position: relative;
     box-sizing: initial;
     border-radius: 20px;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
     .startGame{
         width: 100%;
@@ -34,7 +53,7 @@ main{
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        transition: 100ms;
+        transition: 600ms;
         background: rgb(248, 248, 209);
         position: absolute;
     }
@@ -63,6 +82,7 @@ main{
         flex-wrap: wrap;
         position: absolute;
         background: rgb(248, 248, 209);
+        transition: 600ms;
     }
 .cardWrap{
     aspect-ratio: 1/1;

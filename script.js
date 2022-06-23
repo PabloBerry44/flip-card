@@ -21,7 +21,7 @@ function createGame(difficulty){
     }
 
     gameStartView.style.opacity = 0
-    setTimeout(()=>{gameStartView.style.display = 'none'}, 100)
+    setTimeout(()=>{gameStartView.style.display = 'none'}, 600)
 
     for(q=0; q<numOfCards; q++){
         
@@ -149,3 +149,14 @@ function setSize(){
         card.style.width = cardSize
     }
 }
+
+document.querySelector('.restart').addEventListener('click', ()=>{
+
+    gameStartView.style.display = 'flex'
+    gameStartView.style.opacity = 1
+    setTimeout(()=>{
+        while(playground.firstChild){
+            playground.removeChild(playground.lastChild)
+        }
+    },600)
+})
