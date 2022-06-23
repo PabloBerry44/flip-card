@@ -14,6 +14,8 @@ main{
     border: 2px solid black;
     position: relative;
     box-sizing: initial;
+    border-radius: 20px;
+    overflow: hidden;
 }
     .startGame{
         width: 100%;
@@ -84,8 +86,8 @@ main{
 .cardWrap-back{
     background-color: lightseagreen;
     transform: rotateY(180deg);
-    padding: 2em;
+    padding: 10%;
 }
 img{
-    width: 100%;
+    width: 90%;
 }

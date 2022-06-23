@@ -36,24 +36,48 @@ function startGame(difficulty){
         const cardWrapBack = document.createElement('div')
         cardWrapBack.classList.add('cardWrap-back')
 
+        const cardImage = document.createElement('img')
+        cardImage.classList.add('cardImage')
+
         playground.appendChild(cardWrap)
         cardWrap.appendChild(cardWrapInner)
         cardWrapInner.appendChild(cardWrapFront)
         cardWrapInner.appendChild(cardWrapBack)
+        cardWrapBack.appendChild(cardImage)
 
         if(numOfCards==8 && q==4){
-            console.log('es')
             cardWrap.style.transform = 'translateY(211px)'
         }
 
-        cardWrap.addEventListener('click', ()=>{
-            if(cardWrapInner.classList.contains('flip')){
-                cardWrapInner.classList.remove('flip')
-            }
-            else{
-                cardWrapInner.classList.add('flip')
-            }
-        })
+        // cardWrap.addEventListener('click', ()=>{
+        //     if(cardWrapInner.classList.contains('flip')){
+        //         cardWrapInner.classList.remove('flip')
+        //     }
+        //     else{
+        //         cardWrapInner.classList.add('flip')
+        //     }
+        // })
+        cardWrapInner.classList.add('flip')
+    }
+
+    //place images on the cards
+
+    let savedIndexes = []
+    let imageIndex = 0
+    let cardIndex = 0
+    const cardImages = document.querySelectorAll('.cardImage')
+    for(e=0; e<numOfCards; e++){
+        while(savedIndexes.includes(cardIndex)){
+            cardIndex = Math.floor(Math.random() * numOfCards)
+        }
+        savedIndexes.push(cardIndex)
+        console.log(savedIndexes)
+
+        cardImages[cardIndex].src = './card_images/img'+imageIndex+'.webp'
+        if(!(e%2==0)){
+            imageIndex++
+        }
+
     }
 
 }
