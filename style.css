@@ -59,7 +59,7 @@ main{
         padding: 10px;
         justify-content: space-between;
         display: flex;
-        gap: 10px;
+        gap: 9px;
         flex-wrap: wrap;
         position: absolute;
         background: rgb(248, 248, 209);
