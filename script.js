@@ -65,7 +65,6 @@ function createGame(difficulty){
     }
 
     //place images on the cards
-
     let savedCardIndexes = []
     let savedImageIndexes = []
     let imageIndex = Math.floor(Math.random() * (numOfCards/2))
@@ -92,6 +91,7 @@ function createGame(difficulty){
 }
 
 function startGame(wrap, image, inner){
+    let movesCount = 0
     let oneCardFlipped = false
     let cardsInMove = false
     for(let w=0; w<wrap.length; w++){
@@ -106,8 +106,10 @@ function startGame(wrap, image, inner){
                     oneCardFlipped = true
                     card1index = w
                 }
-                //if one card if flipped
+                //if one card is flipped
                 else if(oneCardFlipped && card1index!=w){
+                    movesCount++
+                    setTimeout(()=>{document.querySelector('.movesCount').innerHTML = movesCount},1000)
                     card2index = w
                     //if they are the same make them transparent in 1 second
                     if(image[card1index].src == image[card2index].src){
