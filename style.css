@@ -19,7 +19,6 @@ main{
 .game{
     width: 650px;
     height: 650px;
-    border: 2px solid black;
     position: relative;
     box-sizing: initial;
     border-radius: 20px;
@@ -34,7 +33,7 @@ main{
         justify-content: center;
         flex-direction: column;
         transition: 100ms;
-        background: lightyellow;
+        background: rgb(248, 248, 209);
         position: absolute;
     }
 
@@ -60,6 +59,7 @@ main{
         display: flex;
         flex-wrap: wrap;
         position: absolute;
+        background: rgb(248, 248, 209);
     }
 .cardWrap{
     perspective: 1000px;
