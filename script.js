@@ -21,8 +21,7 @@ function createGame(difficulty){
         case 'Hard': numOfCards=36, inRow=6; break;
     }
 
-    gameStartView.style.opacity = 0
-    setTimeout(()=>{gameStartView.style.display = 'none'}, 600)
+    gameStartView.style.display = 'none'
 
     for(q=0; q<numOfCards; q++){
         
@@ -111,9 +110,20 @@ function startGame(wrap, image, inner){
                         setTimeout(()=>{
                             wrap[card1index].classList.add('guessed')
                             wrap[card2index].classList.add('guessed')
+                            //check if the all cards are guessed
+                            winner = true
+                                for (const card of wrap) {
+                                    if(!(card.classList.contains('guessed'))){
+                                        winner = false
+                                    }
+                                }
+                                if(winner){
+                                    winView.style.display = 'flex'
+                                }
                             cardsInMove = false
                         },1000)
                         oneCardFlipped=false
+                        
                     }
                     //if they are not the same flip them back afrer 1 second
                     else if(image[card1index].src != image[card2index].src){
@@ -154,10 +164,8 @@ function setSize(){
 document.querySelector('.restart').addEventListener('click', ()=>{
 
     gameStartView.style.display = 'flex'
-    gameStartView.style.opacity = 1
-    setTimeout(()=>{
+    winView.style.display = 'none'
         while(playground.firstChild){
             playground.removeChild(playground.lastChild)
         }
-    },600)
 })
