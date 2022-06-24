@@ -8,11 +8,15 @@ const cardInnerArray = []
 const cardBackArray = []
 const cardImageArray = []
 
+let numOfCards
+let inRow
+
+window.addEventListener('resize', setSize)
+
 for (const button of diffButton) {
     button.addEventListener('click', () => createGame(button.textContent))
 }
-let numOfCards
-let inRow
+
 function createGame(difficulty){
 
     switch(difficulty){
@@ -79,7 +83,6 @@ function createGame(difficulty){
 
         cardImages[cardIndex].src = './card_images/img'+imageIndex+'.webp'
     }
-
     startGame(cardWrapArray, cardImageArray, cardInnerArray)
 }
 
@@ -140,9 +143,6 @@ function startGame(wrap, image, inner){
         }
     }
 }
-
-
-window.addEventListener('resize', setSize)
 
 function setSize(){
     gameWidth = document.querySelector('.playground').clientWidth

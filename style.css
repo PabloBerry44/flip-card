@@ -23,7 +23,7 @@ main{
     border-radius: 20px;
 }
 .nav{
-    width: 100%;
+    width: 90%;
     max-width: 650px;
     display: flex;
     align-items: center;
